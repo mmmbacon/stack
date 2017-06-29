@@ -1,0 +1,6 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="scout.png" transparentColor="">
+ <animation title="Default animation" delay="150">
+  <cut w="96" x="0" y="0" h="128" row="4" col="3"/>
+ </animation>
+</sprites>

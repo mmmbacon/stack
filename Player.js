@@ -24,9 +24,9 @@ Player.prototype.getPosition = function(){
 }
 Player.prototype.setSprite = function(spriteMap){
 	//Temp values for testing
-	let pos = new PIXI.Point(35, 35);
-	spriteMap.position = pos;
-	spriteMap.height = 35;
-	spriteMap.width = 35;
+	//let pos = new PIXI.Point(35, 35);
+	//spriteMap.position = pos;
+	//spriteMap.height = 35;
+	//spriteMap.width = 35;
 	this.spriteMap = spriteMap;
 }

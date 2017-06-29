@@ -12,7 +12,7 @@ var controls = {
 	right: Controls(68),
 }
 
-var player;
+var player, spriteMap;
 
 let Update = function(){
 	if (running){
@@ -24,25 +24,28 @@ let Update = function(){
 				if(player){
 					if(controls.up.isDown){
 						player.spriteMap.y -= 1 * player.movespeed;
+						player.setSprite(spriteMap[0]);
 						var buttonpressed = true;
 					}
 					if(controls.down.isDown){
 						player.spriteMap.y += 1 * player.movespeed;
+						player.setSprite(spriteMap[1]);
 						var buttonpressed = true;
 					}
 					if(controls.left.isDown){
 						player.spriteMap.x -= 1 * player.movespeed;
+						player.setSprite(spriteMap[2]);
 						var buttonpressed = true;
 					}
 					if(controls.right.isDown){
 						player.spriteMap.x += 1 * player.movespeed;
+						player.setSprite(spriteMap[3]);
 						var buttonpressed = true;
 					}
 				}
 				renderer.render(sm.currentScene.stage);
 			}
 		}
-		
 	}
 }
 
@@ -51,9 +54,20 @@ let Init = function(){
 	//Load all images
 	PIXI.loader
 		.add("stacky.png")
+		.add("scout_red/scout_red.json")
 		.load(setup)
 
 	function setup(){
+
+		var id = PIXI.loader.resources["scout_red/scout_red.json"].textures; 
+
+		spriteMap = [];
+
+		spriteMap[0] = new PIXI.Sprite(id["36.png"]);
+		spriteMap[1] = new PIXI.Sprite(id["1.png"]);
+		spriteMap[2] = new PIXI.Sprite(id["13.png"]);
+		spriteMap[3] = new PIXI.Sprite(id["24.png"]);
+
 
 		//Setup Controls
 		let up = Controls(87),
@@ -67,9 +81,8 @@ let Init = function(){
 		let currentScene = sm.getCurrentScene();
 
 		//Create generic player for testing
-		let sprite = new PIXI.Sprite(PIXI.loader.resources["stacky.png"].texture);
 		player = new Player('drizzt', 'rogue', 'dark elf');
-		player.setSprite(sprite);
+		player.setSprite(spriteMap[1]);
 		sm.addObjectToScene(currentScene, player);
 
 		//For all gameobjects in scene, add to stage
