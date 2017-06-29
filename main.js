@@ -12,7 +12,7 @@ var controls = {
 	right: Controls(68),
 }
 
-var player, spriteMap;
+var player, spriteMap, anim;
 
 let Update = function(){
 	if (running){
@@ -23,24 +23,25 @@ let Update = function(){
 			if(sm.currentScene.stage){
 				if(player){
 					if(controls.up.isDown){
-						player.spriteMap.y -= 1 * player.movespeed;
-						player.setSprite(spriteMap[0]);
+						player.sprite.y -= 1 * player.movespeed;
 						var buttonpressed = true;
 					}
 					if(controls.down.isDown){
-						player.spriteMap.y += 1 * player.movespeed;
-						player.setSprite(spriteMap[1]);
+						player.sprite.y += 1 * player.movespeed;
 						var buttonpressed = true;
 					}
 					if(controls.left.isDown){
-						player.spriteMap.x -= 1 * player.movespeed;
-						player.setSprite(spriteMap[2]);
+						player.sprite.x -= 1 * player.movespeed;
 						var buttonpressed = true;
 					}
 					if(controls.right.isDown){
-						player.spriteMap.x += 1 * player.movespeed;
-						player.setSprite(spriteMap[3]);
+						player.sprite.x += 1 * player.movespeed;
 						var buttonpressed = true;
+					}
+					if(controls.up.isUp && controls.down.isUp && controls.left.isUp && controls.right.isUp){
+						anim.stop();
+					}else{
+						anim.play();
 					}
 				}
 				renderer.render(sm.currentScene.stage);
@@ -53,7 +54,6 @@ let Init = function(){
 
 	//Load all images
 	PIXI.loader
-		.add("stacky.png")
 		.add("scout_red/scout_red.json")
 		.load(setup)
 
@@ -61,19 +61,52 @@ let Init = function(){
 
 		var id = PIXI.loader.resources["scout_red/scout_red.json"].textures; 
 
-		spriteMap = [];
+		var uFrames = [];
+		for (var i = 0; i < 2; i++){
+			var val = 'u' + i + '.png';
+			uFrames.push(PIXI.Texture.fromFrame(val));
+		}
 
-		spriteMap[0] = new PIXI.Sprite(id["36.png"]);
-		spriteMap[1] = new PIXI.Sprite(id["1.png"]);
-		spriteMap[2] = new PIXI.Sprite(id["13.png"]);
-		spriteMap[3] = new PIXI.Sprite(id["24.png"]);
+		var dFrames = [];
+		for (var i = 0; i < 2; i++){
+			var val = 'd' + i + '.png';
+			dFrames.push(PIXI.Texture.fromFrame(val));
+		}
 
+		var lFrames = [];
+		for (var i = 0; i < 4; i++){
+			var val = 'l' + i + '.png';
+			lFrames.push(PIXI.Texture.fromFrame(val));
+		}
+
+		var rFrames = [];
+		for (var i = 0; i < 4; i++){
+			var val = 'r' + i + '.png';
+			rFrames.push(PIXI.Texture.fromFrame(val));
+		}
+
+		anim = new PIXI.extras.AnimatedSprite(uFrames);
+		anim.animationSpeed = 0.1;
+		anim.play();
 
 		//Setup Controls
 		let up = Controls(87),
 			down = Controls(83),
 			left = Controls(65),
 			right = Controls(68);
+
+		controls.up.press = function() {
+		  player.setSprite(uFrames);
+		};
+		controls.down.press = function() {
+		  player.setSprite(dFrames);
+		};
+		controls.left.press = function() {
+		  player.setSprite(lFrames);
+		};
+		controls.right.press = function() {
+		  player.setSprite(rFrames);
+		};
 
 		//Set current scene
 		let scene = sm.createNewScene('scene1', stage);
@@ -82,18 +115,16 @@ let Init = function(){
 
 		//Create generic player for testing
 		player = new Player('drizzt', 'rogue', 'dark elf');
-		player.setSprite(spriteMap[1]);
+		player.setSprite(anim);
 		sm.addObjectToScene(currentScene, player);
 
 		//For all gameobjects in scene, add to stage
 		for(var i in sm.currentScene.objects){
-			stage.addChild(sm.currentScene.objects[i].spriteMap)
+			stage.addChild(sm.currentScene.objects[i].sprite);
 		}
 
 		Update(currentScene, player);
 	}
-
-	
 }
 
 Init();

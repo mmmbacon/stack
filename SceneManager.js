@@ -13,7 +13,6 @@ SceneManager.prototype.addObjectToScene = function(scene,object){
 			}
 		}
 	}
-	
 }
 SceneManager.prototype.createNewScene = function(name, stage){
 	
@@ -24,7 +23,6 @@ SceneManager.prototype.createNewScene = function(name, stage){
 	return scene;
 }
 SceneManager.prototype.getScene = function(name){
-
 	if(name){
 		for (var i in this.scenes){
 			if(this.scenes[i].name === name ){
@@ -32,7 +30,6 @@ SceneManager.prototype.getScene = function(name){
 			}
 		}
 	}
-
 }
 SceneManager.prototype.getSceneIndex = function(name){
 
@@ -49,4 +46,7 @@ SceneManager.prototype.setCurrentScene = function(scene){
 }
 SceneManager.prototype.getCurrentScene = function(){
 	return this.currentScene;
+}
+SceneManager.prototype.updateObject = function(object){
+	let id = object.id;
 }

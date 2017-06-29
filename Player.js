@@ -1,7 +1,7 @@
 'use strict'
-function Player(name, playerclass, race, spriteMap){
+function Player(name, playerclass, race, sprite, UUID){
 
-	GameObject.call(this, 0, 0, name, spriteMap)
+	GameObject.call(this, 0, 0, name, sprite, UUID)
 	this.playerclass = playerclass;
 	this.race = race;
 	this.damage = 0;
@@ -22,11 +22,11 @@ Player.prototype.getPosition = function(){
 		y: this.y
 	}
 }
-Player.prototype.setSprite = function(spriteMap){
-	//Temp values for testing
-	//let pos = new PIXI.Point(35, 35);
-	//spriteMap.position = pos;
-	//spriteMap.height = 35;
-	//spriteMap.width = 35;
-	this.spriteMap = spriteMap;
+Player.prototype.setSprite = function(sprite){
+	if(this.sprite){
+		this.sprite.textures = sprite;
+	}else{
+		this.sprite = sprite;
+	}
+	
 }
