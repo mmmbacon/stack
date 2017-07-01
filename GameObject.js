@@ -1,9 +1,8 @@
 'use strict'
-function GameObject(x,y,name, sprite, UUID){
+function GameObject(x,y,name){
 	this.x = x;
 	this.y = y;
 	this.name = name;
-	this.sprite = sprite;
 	this.UUID = generateUUID();
 
 	function generateUUID () { // Public Domain/MIT

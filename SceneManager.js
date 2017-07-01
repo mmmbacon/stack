@@ -3,12 +3,15 @@ function SceneManager(){
 	this.scenes = [];
 	this.currentScene;
 }
-SceneManager.prototype.addObjectToScene = function(scene,object){
+SceneManager.prototype.addObjectToScene = function(scene,object, addToCollisionMatrix){
 
 	if(scene){
 		for (var i in this.scenes){
 			if(this.scenes[i].name === scene.name ){
-				this.scenes[i].objects.push(object)
+				this.scenes[i].objects.push(object);
+				if(addToCollisionMatrix){
+					this.scenes[i].collisionObjects.push(object);
+				}
 				return this.scenes[i];
 			}
 		}
@@ -16,7 +19,7 @@ SceneManager.prototype.addObjectToScene = function(scene,object){
 }
 SceneManager.prototype.createNewScene = function(name, stage){
 	
-	let scene = new Scene(name, [], stage);
+	let scene = new Scene(name, [], [], stage);
 
 	this.scenes.push(scene);
 
