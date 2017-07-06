@@ -9,6 +9,8 @@ function Player(name){
 	this.anim;
 	this.sprite;
 	this.frames = [];
+	this.collidingObjects = [];
+	this.items = [];
 }
 Player.prototype = Object.create(GameObject.prototype);
 Player.prototype.constructor = Player;
@@ -29,28 +31,28 @@ Player.prototype.setClass = function(playerClass){
 
 		var uFrames = [];
 		for (var i = 1; i < 3; i++){
-			var val = 'U' + i + '.png';
+			var val = 'PU' + i + '.png';
 			uFrames.push(PIXI.Texture.fromFrame(val));
 		}
 		this.frames.push(uFrames);
 
 		var dFrames = [];
 		for (var i = 1; i < 3; i++){
-			var val = 'D' + i + '.png';
+			var val = 'PD' + i + '.png';
 			dFrames.push(PIXI.Texture.fromFrame(val));
 		}
 		this.frames.push(dFrames);
 
 		var lFrames = [];
 		for (var i = 0; i < 4; i++){
-			var val = 'L' + i + '.png';
+			var val = 'PL' + i + '.png';
 			lFrames.push(PIXI.Texture.fromFrame(val));
 		}
 		this.frames.push(lFrames);
 
 		var rFrames = [];
 		for (var i = 0; i < 4; i++){
-			var val = 'R' + i + '.png';
+			var val = 'PR' + i + '.png';
 			rFrames.push(PIXI.Texture.fromFrame(val));
 		}
 		this.frames.push(rFrames);
@@ -103,18 +105,20 @@ Player.prototype.setSprite = function(sprite){
 }
 Player.prototype.checkCollisions = function(){
 
-	for (var i in sm.currentScene.collisionObjects){
-		if(bump.hit(this.sprite, sm.currentScene.collisionObjects[i].sprite, sm.currentScene.collisionObjects[i].solid, true, false)){
-			if(sm.currentScene.collisionObjects[i].name === "Tree"){
-				
+	for (var i in sm.currentScene.collisionObjects){ //collision objects could be broken down into more categories later to improve performance
+		if(!bump.hit(this.sprite, sm.currentScene.collisionObjects[i].sprite, sm.currentScene.collisionObjects[i].solid, true, false)){
+			if(sm.currentScene.collisionObjects[i].interactive === true){
+				let a = sm.currentScene.collisionObjects[i];
+				a.labelDestroy();
+			}
+		}else{
+			if(sm.currentScene.collisionObjects[i].interactive === true){
+				let a = sm.currentScene.collisionObjects[i];
+				a.labelCreate();
 			}
 		}
 
-		if(bump.hit(this.sprite, sm.currentScene.collisionObjects[i].sprite, sm.currentScene.collisionObjects[i].solid, true, false)){
-			if(sm.currentScene.collisionObjects[i].name === "Shop"){
-				
-			}
-		}
+		
 	}
-	
 }
+

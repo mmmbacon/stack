@@ -1,6 +1,6 @@
 {"frames": {
 
-"D0.png":
+"PD0.png":
 {
 	"frame": {"x":0,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"D1.png":
+"PD1.png":
 {
 	"frame": {"x":16,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -18,7 +18,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"D2.png":
+"PD2.png":
 {
 	"frame": {"x":32,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -27,7 +27,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"L0.png":
+"PL0.png":
 {
 	"frame": {"x":48,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -36,7 +36,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"L1.png":
+"PL1.png":
 {
 	"frame": {"x":64,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -45,7 +45,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"L2.png":
+"PL2.png":
 {
 	"frame": {"x":80,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -54,7 +54,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"L3.png":
+"PL3.png":
 {
 	"frame": {"x":96,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -63,7 +63,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"R0.png":
+"PR0.png":
 {
 	"frame": {"x":112,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"R1.png":
+"PR1.png":
 {
 	"frame": {"x":128,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -81,7 +81,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"R2.png":
+"PR2.png":
 {
 	"frame": {"x":144,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -90,7 +90,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"R3.png":
+"PR3.png":
 {
 	"frame": {"x":160,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -99,7 +99,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"U0.png":
+"PU0.png":
 {
 	"frame": {"x":176,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -108,7 +108,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"U1.png":
+"PU1.png":
 {
 	"frame": {"x":192,"y":0,"w":16,"h":16},
 	"rotated": false,
@@ -117,7 +117,7 @@
 	"sourceSize": {"w":16,"h":16},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"U2.png":
+"PU2.png":
 {
 	"frame": {"x":208,"y":0,"w":16,"h":16},
 	"rotated": false,
