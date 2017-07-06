@@ -1,0 +1,30 @@
+{"frames": {
+
+"Crab1.png":
+{
+	"frame": {"x":0,"y":0,"w":18,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":16},
+	"sourceSize": {"w":18,"h":16},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Crab2.png":
+{
+	"frame": {"x":0,"y":16,"w":18,"h":18},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":18},
+	"sourceSize": {"w":18,"h":18},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "CrabAggro.png",
+	"format": "RGBA8888",
+	"size": {"w":18,"h":34},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ed5fbd8dc4c8546a749cb07dd6219fc5:64468d87bfd53563a6f8c7033346a61c:d3248d8f86aca54c94337bd67f5135db$"
+}
+}

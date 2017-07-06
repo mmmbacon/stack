@@ -7,7 +7,6 @@ function Player(name){
 	this.damage = 0;
 	this.movespeed = 1;
 	this.anim;
-	this.sprite;
 	this.frames = [];
 	this.collidingObjects = [];
 	this.items = [];
@@ -15,10 +14,6 @@ function Player(name){
 Player.prototype = Object.create(GameObject.prototype);
 Player.prototype.constructor = Player;
 Player.prototype.move = function(){
-}
-Player.prototype.setName = function(name){
-
-	this.name = name;
 }
 Player.prototype.setRace = function(race){
 
@@ -60,7 +55,7 @@ Player.prototype.setClass = function(playerClass){
 		this.class = playerClass;
 		this.anim = new PIXI.extras.AnimatedSprite(dFrames);
 		this.anim.animationSpeed = 0.1;
-		this.sprite = this.anim;
+		this.container.children[0] = this.anim;
 		this.anim.play();
 	}
 }
@@ -72,49 +67,37 @@ Player.prototype.setAnimationState = function(state){
 		this.anim.stop();
 	}
 }
-Player.prototype.setPosition = function(x,y){
-	this.x = x;
-	this.y = y;
-}
-Player.prototype.getPosition = function(){
-	return {
-		x: this.x,
-		y: this.y
-	}
-}
 Player.prototype.setDirection = function(direction){
 	if(direction === "Up"){
-		this.sprite.textures = this.frames[0];
+		this.container.children[0].textures = this.frames[0];
 	}
 	if(direction === "Down"){
-		this.sprite.textures = this.frames[1];
+		this.container.children[0].textures = this.frames[1];
 	}
 	if(direction === "Left"){
-		this.sprite.textures = this.frames[2];
+		this.container.children[0].textures = this.frames[2];
 	}
 	if(direction === "Right"){
-		this.sprite.textures = this.frames[3];
+		this.container.children[0].textures = this.frames[3];
 	}
 }
-Player.prototype.setSprite = function(sprite){
-	if(this.sprite){
-		this.sprite.textures = sprite;
-	}else{
-		this.sprite = sprite;
-	}	
-}
+
 Player.prototype.checkCollisions = function(){
 
 	for (var i in sm.currentScene.collisionObjects){ //collision objects could be broken down into more categories later to improve performance
-		if(!bump.hit(this.sprite, sm.currentScene.collisionObjects[i].sprite, sm.currentScene.collisionObjects[i].solid, true, false)){
+		if(!bump.hit(this.container.children[0], sm.currentScene.collisionObjects[i].container.children[0], sm.currentScene.collisionObjects[i].solid, true, false)){
 			if(sm.currentScene.collisionObjects[i].interactive === true){
 				let a = sm.currentScene.collisionObjects[i];
 				a.labelDestroy();
+			}else{
+				return
 			}
 		}else{
 			if(sm.currentScene.collisionObjects[i].interactive === true){
 				let a = sm.currentScene.collisionObjects[i];
 				a.labelCreate();
+			}else{
+				return
 			}
 		}
 

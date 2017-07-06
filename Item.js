@@ -6,7 +6,7 @@ function Item(name, solid, interactive, labelText){
 	this.damage;
 	this.health;
 	this.value;
-	this.sprite;
+	this.container.children[0];
 	this.solid = solid;
 	this.label;
 	this.labelText = labelText;
@@ -22,15 +22,15 @@ Item.prototype.setType = function(type){
 	if(type === "Loot"){
 		this.type = type;
 		var id = PIXI.loader.resources["items16x16/items16x16.json"].textures;
-		this.sprite = new PIXI.Sprite(id["E19.png"]);
+		this.container.children[0] = new PIXI.Sprite(id["E19.png"]);
 	}
 }
 Item.prototype.setPosition = function(x,y){
 	this.x = x;
 	this.y = y;
 
-	this.sprite.position.x = this.x;
-	this.sprite.position.y = this.y;
+	this.container.children[0].position.x = this.x;
+	this.container.children[0].position.y = this.y;
 }
 Item.prototype.labelCreate = function(){
 
@@ -40,8 +40,8 @@ Item.prototype.labelCreate = function(){
 			fontSize: 10
 		});
 		this.label = new PIXI.Text(this.labelText, style);
-		this.label.position.x = this.sprite.position.x + 12;
-		this.label.position.y = this.sprite.position.y - 12;
+		this.label.position.x = this.container.children[0].position.x + 12;
+		this.label.position.y = this.container.children[0].position.y - 12;
 		stage.addChild(this.label);
 		this.labelVisible = true;
 	}

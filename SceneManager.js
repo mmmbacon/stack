@@ -15,7 +15,7 @@ SceneManager.prototype.addObjectToScene = function(scene,object, collidable){
 					this.scenes[i].collisionObjects.push(object);
 				}
 
-				stage.addChild(object.sprite);
+				stage.addChild(object.container.children[0]);
 
 				return this.scenes[i];
 			}
@@ -131,11 +131,11 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 
 	    					let e = new EnvironmentObject("Water", true, false, "");
 	    					let id = PIXI.loader.resources["blocks16x16/blocks16x16.json"].textures;
-	    					e.sprite = new PIXI.Sprite(id["90.png"]);
-	    					e.sprite.position.x = pixArray[y][x][pix].position.x;
-	    					e.sprite.position.y = pixArray[y][x][pix].position.y;
+	    					e.container.addChild(new PIXI.Sprite(id["90.png"]));
+	    					e.container.children[0].position.x = pixArray[y][x][pix].position.x;
+	    					e.container.children[0].position.y = pixArray[y][x][pix].position.y;
 	    					scene.collisionObjects.push(e);
-	    					stage.addChild(e.sprite);
+	    					stage.addChild(e.container.children[0]);
 	    				}
 
 	    				//BROWN PIXELS

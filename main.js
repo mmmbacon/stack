@@ -28,16 +28,16 @@ let Update = function(){
 			if(sm.currentScene.stage){
 				if(player){
 					if(controls.up.isDown){
-						player.sprite.y -= 1 * player.movespeed;
+						player.container.children[0].y -= 1 * player.movespeed;
 					}
 					if(controls.down.isDown){
-						player.sprite.y += 1 * player.movespeed;
+						player.container.children[0].y += 1 * player.movespeed;
 					}
 					if(controls.left.isDown){
-						player.sprite.x -= 1 * player.movespeed;
+						player.container.children[0].x -= 1 * player.movespeed;
 					}
 					if(controls.right.isDown){
-						player.sprite.x += 1 * player.movespeed;
+						player.container.children[0].x += 1 * player.movespeed;
 					}
 					if(controls.up.isUp && controls.down.isUp && controls.left.isUp && controls.right.isUp){
 						player.setAnimationState("Stop")
@@ -62,7 +62,8 @@ let Init = function(){
 		.add("scout_red/SCOUT_RED.json")
 		.add("blocks16x16/blocks16x16.json")
 		.add("items16x16/items16x16.json")
-		.add("monsters/crab1.json")
+		.add("monsters/CrabAggro.json")
+		.add("monsters/CrabNeutral.json")
 		.add("buildings/shop1.png")
 		.load(setup)
 
@@ -95,16 +96,19 @@ let Init = function(){
 		item.setPosition(4*16, 8*16);
 		sm.addObjectToScene(currentScene, item, true);
 
-		let monster1 = new Baddy();
-		monster1.setType("Crab");
-		monster1.setPosition(16,16);
-		sm.addObjectToScene(currentScene, monster1);
-
 		//Create generic player for testing
 		player = new Player("Drizzt");
 		player.setClass("Scout");
 		player.setRace("Dark-Elf");
 		sm.addObjectToScene(currentScene, player);
+
+		let monster1 = new Baddy("Crab", 5*16, 5*16);
+		monster1.setType("Crab");
+		monster1.setState("Neutral");
+		monster1.setAnimationState("Neutral");
+		monster1.setPosition(3*16,6*16);
+		monster1.setNewCollisionZone(64);
+		sm.addObjectToScene(currentScene, monster1);
 
 		//Set controls on player
 		controls.up.press = function() {
