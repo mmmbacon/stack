@@ -22,6 +22,40 @@ SceneManager.prototype.addObjectToScene = function(scene,object, collidable){
 		}
 	}
 }
+SceneManager.prototype.addEnemyToScene = function(scene,object){
+
+	if(scene){
+		for (var i in this.scenes){
+			if(this.scenes[i].name === scene.name ){
+
+				this.scenes[i].objects.push(object);
+
+				this.scenes[i].enemyObjects.push(object);
+
+				stage.addChild(object.container.children[0]);
+
+				return this.scenes[i];
+			}
+		}
+	}
+}
+SceneManager.prototype.addPlayerToScene = function(scene,object){
+
+	if(scene){
+		for (var i in this.scenes){
+			if(this.scenes[i].name === scene.name ){
+
+				this.scenes[i].objects.push(object);
+
+				this.scenes[i].playerObjects.push(object);
+
+				stage.addChild(object.container.children[0]);
+
+				return this.scenes[i];
+			}
+		}
+	}
+}
 SceneManager.prototype.addUIObjectToScene = function(scene,object){
 
 	if(scene){
@@ -113,9 +147,9 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 
 	    function populate(scene){
 	    	//render pixels as Sprites
-	    	for (let y in pixArray){
-	    		for (let x in pixArray[y]){
-	    			for(let pix in pixArray[y][x]){
+	    	for (let y = 0; y < pixArray.length; y++){
+	    		for (let x = 0; x < pixArray[y].length; x++){
+	    			for(let pix = 0; pix < pixArray[y][x].length; pix++){
 
 	    				//RED PIXELS
 	    				if(arraysEqual(pixArray[y][x][pix].color, [237,28,36,255]) ){
@@ -129,13 +163,75 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	    				//BLUE PIXELS - Water - Collidable
 	    				if(arraysEqual(pixArray[y][x][pix].color, [0,162,232,255]) ){
 
-	    					let e = new EnvironmentObject("Water", true, false, "");
+	    					let e = new EnvironmentObject("Water", false, false);
+	    					e.setType("Water");
 	    					let id = PIXI.loader.resources["blocks16x16/blocks16x16.json"].textures;
-	    					e.container.addChild(new PIXI.Sprite(id["90.png"]));
+	    					e.container.children[0] = new PIXI.Sprite(id["90.png"]);
+
+	    					//Undefined or Not water
+	    					if(pixArray[y][x][pix-1] === undefined || !arraysEqual(pixArray[y][x][pix-1].color, [0,162,232,255])){ //check left side
+	    						if(pixArray[y][x-1] === undefined || !arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["480.png"]);
+	    						}else if(pixArray[y][x+1] === undefined || !arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["483.png"]);
+	    						}else if(pixArray[y][x][pix+1] === undefined || !arraysEqual(pixArray[y][x][pix+1].color, [0,162,232,255])){
+	    							if(arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255]) && arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){
+		    							e.solid = true;
+		    							e.container.children[0] = new PIXI.Sprite(id["30.png"]);
+		    						}
+	    						}else{
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["91.png"])
+	    						}
+	    					}else if(pixArray[y][x][pix+1] === undefined || !arraysEqual(pixArray[y][x][pix+1].color, [0,162,232,255])){ //check right side
+	    						if(pixArray[y][x-1] === undefined || !arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["482.png"])
+	    						}else if(pixArray[y][x+1] === undefined || !arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["481.png"]);
+	    						}else{
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["92.png"])
+	    						}
+	    					}
+
+	    					//If its Water
+	    					else if(!arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255]) && !arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){ //check top and bot for land
+	    						e.solid = true;
+	    						e.container.children[0] = new PIXI.Sprite(id["60.png"])
+	    					}else if(arraysEqual(pixArray[y][x][pix-1].color, [0,162,232,255]) && arraysEqual(pixArray[y][x][pix+1].color, [0,162,232,255])){ //water on both sides (top/bottom shores)
+	    						if(pixArray[y][x-1] === undefined || !arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["61.png"])
+	    						}else if(pixArray[y][x+1] === undefined || !arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["62.png"])
+	    						}else{
+	    							e.container.children[0] = new PIXI.Sprite(id["90.png"]);
+	    						}
+	    					}else if(arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255]) && arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){ //water on top and bottom (left/right shores)
+	    						if(pixArray[y][x][pix-1] === undefined || !arraysEqual(pixArray[y][x][pix-1].color, [0,162,232,255])){
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["91.png"])
+	    						}else{
+	    							e.solid = true;
+	    							e.container.children[0] = new PIXI.Sprite(id["92.png"]);
+	    						}
+	    					}else if(!arraysEqual(pixArray[y][x][pix-1].color, [0,162,232,255]) //water on all four sides
+	    								&& !arraysEqual(pixArray[y][x][pix+1].color, [0,162,232,255]) 
+	    								&& !arraysEqual(pixArray[y][x-1][pix].color, [0,162,232,255]) 
+	    								&& !arraysEqual(pixArray[y][x+1][pix].color, [0,162,232,255])){ 
+	    						e.solid = true;
+	    						e.container.children[0] = new PIXI.Sprite(id["0.png"]);
+	    					}
+
 	    					e.container.children[0].position.x = pixArray[y][x][pix].position.x;
 	    					e.container.children[0].position.y = pixArray[y][x][pix].position.y;
 	    					scene.collisionObjects.push(e);
-	    					stage.addChild(e.container.children[0]);
+	    					container.addChild(e.container.children[0]);
 	    				}
 
 	    				//BROWN PIXELS

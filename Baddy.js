@@ -49,6 +49,9 @@ Baddy.prototype.setState = function(state){
 }
 Baddy.prototype.setNewCollisionZone = function(radius){
 	var circle = new PIXI.Graphics();
-	circle.drawCircle(this.x, this.y, radius);
-	this.container.addChild(circle);
+	//circle.beginFill(0x9966FF);
+	//circle.drawCircle(this.x, this.y, radius);
+	//circle.endFill();
+	//this.container.addChild(circle);
+	//stage.addChild(this.container);
 }

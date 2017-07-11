@@ -84,24 +84,34 @@ Player.prototype.setDirection = function(direction){
 
 Player.prototype.checkCollisions = function(){
 
+	for (var i in sm.currentScene.enemyObjects){
+		if(!bump.hit(this.container.children[0], sm.currentScene.enemyObjects[i].container.children, true, true, false, function(col, enemy){
+
+			function findObject(r){
+				return r.container.children[0] === enemy;
+			}
+
+			var search = sm.currentScene.enemyObjects.find(findObject);
+
+			console.log(search);
+		}));
+	}
+	
+
 	for (var i in sm.currentScene.collisionObjects){ //collision objects could be broken down into more categories later to improve performance
-		if(!bump.hit(this.container.children[0], sm.currentScene.collisionObjects[i].container.children[0], sm.currentScene.collisionObjects[i].solid, true, false)){
+		if(!bump.hit(this.container.children[0], sm.currentScene.collisionObjects[i].container.children, sm.currentScene.collisionObjects[i].solid, false, true)){
 			if(sm.currentScene.collisionObjects[i].interactive === true){
 				let a = sm.currentScene.collisionObjects[i];
 				a.labelDestroy();
-			}else{
-				return
 			}
 		}else{
 			if(sm.currentScene.collisionObjects[i].interactive === true){
 				let a = sm.currentScene.collisionObjects[i];
 				a.labelCreate();
-			}else{
-				return
 			}
 		}
-
-		
-	}
+			
+	}	
+	
 }
 

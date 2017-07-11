@@ -4,6 +4,7 @@ function Scene(name, objects, collisionObjects, playerObjects, uiObjects, stage)
 	this.objects = objects;
 	this.collisionObjects = collisionObjects;
 	this.playerObjects = playerObjects;
+	this.enemyObjects = [];
 	this.uiObjects = uiObjects;
 	this.stage = stage;
 }

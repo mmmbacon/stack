@@ -73,7 +73,7 @@ let Init = function(){
 		let scene = sm.createNewScene('scene1', stage);
 		sm.setCurrentScene(scene);
 		let currentScene = sm.getCurrentScene();
-		sm.generateLevel('levels/world1.png', sm.currentScene)
+		sm.generateLevel('levels/world1.png', currentScene)
 
 		//Create generic tree for collision testing
 		let tree = new EnvironmentObject("Tree", true, false);
@@ -100,15 +100,15 @@ let Init = function(){
 		player = new Player("Drizzt");
 		player.setClass("Scout");
 		player.setRace("Dark-Elf");
-		sm.addObjectToScene(currentScene, player);
+		sm.addPlayerToScene(currentScene, player);
 
 		let monster1 = new Baddy("Crab", 5*16, 5*16);
 		monster1.setType("Crab");
 		monster1.setState("Neutral");
 		monster1.setAnimationState("Neutral");
 		monster1.setPosition(3*16,6*16);
-		monster1.setNewCollisionZone(64);
-		sm.addObjectToScene(currentScene, monster1);
+		monster1.setNewCollisionZone(32);
+		sm.addEnemyToScene(currentScene, monster1);
 
 		//Set controls on player
 		controls.up.press = function() {
