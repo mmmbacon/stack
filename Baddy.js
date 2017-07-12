@@ -19,12 +19,7 @@ Baddy.prototype.setType = function(type){
 Baddy.prototype.setAnimationState = function(state){
 	if (state === "Neutral"){
 		//set up sprites
-		var id = PIXI.loader.resources["monsters/CrabNeutral.json"].textures; 
-		this.container.children[0] = new PIXI.Sprite(id["Crab1.png"])
-		this.container.children[0].anchor.set(0.5, 0.5);
-	}
-	if (state === "Aggro"){
-		//set up sprites
+		this.state = "Neutral";
 		var id = PIXI.loader.resources["monsters/CrabAggro.json"].textures; 
 
 		var uFrames = [];
@@ -33,11 +28,18 @@ Baddy.prototype.setAnimationState = function(state){
 			uFrames.push(PIXI.Texture.fromFrame(val));
 		}
 
-		this.type = type;
 		this.anim = new PIXI.extras.AnimatedSprite(uFrames);
-		this.anim.animationSpeed = 0.1;
+		this.anim.animationSpeed = 0;
 		this.container.children[0] = this.anim;
 		this.container.children[0].anchor.set(0.5, 0.5);
+		this.anim.play();
+	}
+	if (state === "Aggro"){
+
+		this.state = "Aggro"
+		//set up sprites
+		
+		this.anim.animationSpeed = 0.15;
 		this.anim.play();
 	}
 	if(state === "Stop"){
@@ -54,4 +56,20 @@ Baddy.prototype.setNewCollisionZone = function(radius){
 	//circle.endFill();
 	//this.container.addChild(circle);
 	//stage.addChild(this.container);
+}
+
+Baddy.prototype.Update = function(){
+	
+	if(this.state === "Neutral"){
+		//walk around
+		let currentPos = {x: this.x, y: this.y};
+
+		for (var x = 0; x > -64; x--){
+			this.setPosition(this.x-0.01, this.y-0);
+			if(this.x)
+		}
+
+	}else if(this.state === "Aggro"){
+		//chase player
+	}
 }

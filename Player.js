@@ -91,9 +91,12 @@ Player.prototype.checkCollisions = function(){
 				return r.container.children[0] === enemy;
 			}
 
-			var search = sm.currentScene.enemyObjects.find(findObject);
+			var target = sm.currentScene.enemyObjects.find(findObject);
 
-			console.log(search);
+			target.setAnimationState("Aggro");
+
+			console.log(target)
+
 		}));
 	}
 	

@@ -52,6 +52,10 @@ let Update = function(){
 		if(player){
 			player.checkCollisions();
 		}
+
+		for (var i in sm.currentScene.enemyObjects){
+			sm.currentScene.enemyObjects[i].Update();
+		}
 	}
 }
 
