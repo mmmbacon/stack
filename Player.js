@@ -84,6 +84,7 @@ Player.prototype.setDirection = function(direction){
 
 Player.prototype.checkCollisions = function(){
 
+	//check for collisions with enemies
 	for (var i in sm.currentScene.enemyObjects){
 		if(!bump.hit(this.container.children[0], sm.currentScene.enemyObjects[i].container.children, true, true, false, function(col, enemy){
 
@@ -94,13 +95,15 @@ Player.prototype.checkCollisions = function(){
 			var target = sm.currentScene.enemyObjects.find(findObject);
 
 			target.setAnimationState("Aggro");
+			target.setTarget(player);
 
 			console.log(target)
+			console.log(player);
 
 		}));
 	}
 	
-
+	//Check for collisions with environment objects
 	for (var i in sm.currentScene.collisionObjects){ //collision objects could be broken down into more categories later to improve performance
 		if(!bump.hit(this.container.children[0], sm.currentScene.collisionObjects[i].container.children, sm.currentScene.collisionObjects[i].solid, false, true)){
 			if(sm.currentScene.collisionObjects[i].interactive === true){

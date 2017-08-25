@@ -9,6 +9,12 @@ function Baddy(type){
 	this.anim;
 	this.frames = [];
 	this.state = "Neutral";
+	this.tickTime = Date.now();
+	this.direction = 180;
+	this.target;
+	
+	this.movementPatterns = "LR";
+	this.movePattern = "LR";
 }
 
 Baddy.prototype = Object.create(GameObject.prototype);
@@ -29,7 +35,7 @@ Baddy.prototype.setAnimationState = function(state){
 		}
 
 		this.anim = new PIXI.extras.AnimatedSprite(uFrames);
-		this.anim.animationSpeed = 0;
+		this.anim.animationSpeed = 0.05;
 		this.container.children[0] = this.anim;
 		this.container.children[0].anchor.set(0.5, 0.5);
 		this.anim.play();
@@ -57,19 +63,33 @@ Baddy.prototype.setNewCollisionZone = function(radius){
 	//this.container.addChild(circle);
 	//stage.addChild(this.container);
 }
+Baddy.prototype.setTarget = function(target){
+	this.target = target;
+}
 
 Baddy.prototype.Update = function(){
 	
 	if(this.state === "Neutral"){
-		//walk around
-		let currentPos = {x: this.x, y: this.y};
-
-		for (var x = 0; x > -64; x--){
-			this.setPosition(this.x-0.01, this.y-0);
-			if(this.x)
+		//roam
+		if(this.movePattern == "LR"){
+			this.move(this.direction, 0.5);
+			if((Date.now() - this.tickTime) > 1000 ){
+				//flip direction 180 - L/R
+				console.log("tick");
+				this.direction += 180 ;
+				this.tickTime = Date.now();
+			}
 		}
+		
 
 	}else if(this.state === "Aggro"){
-		//chase player
+		//get targeted player entity
+		if(this.target){
+			this.direction = Math.atan((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
+			this.move(this.direction, 0.5)
+		}
+		//see if player is in range every x tick
+		if((Date.now() - this.tickTime) > 1000 ){
+		}
 	}
 }

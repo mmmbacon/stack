@@ -29,6 +29,16 @@ GameObject.prototype.setPosition = function(x,y){
 	this.container.children[0].position.x = this.x;
 	this.container.children[0].position.y = this.y;
 }
+GameObject.prototype.move = function(direction, speed){
+
+	let angle = direction * (Math.PI/180);
+
+	let movX = Math.cos( angle ) * speed;
+	let movY = Math.sin( angle ) * speed;
+
+	this.container.children[0].position.x += movX;
+	this.container.children[0].position.y += movY;
+}
 GameObject.prototype.getPosition = function(){
 	return {
 		x: this.x,
