@@ -28,6 +28,7 @@ GameObject.prototype.setPosition = function(x,y){
 
 	this.container.children[0].position.x = this.x;
 	this.container.children[0].position.y = this.y;
+	
 }
 GameObject.prototype.move = function(direction, speed){
 

@@ -15,6 +15,10 @@ function Baddy(type){
 	
 	this.movementPatterns = "LR";
 	this.movePattern = "LR";
+
+	this.line = new PIXI.Graphics();
+	
+	stage.addChild(this.line);
 }
 
 Baddy.prototype = Object.create(GameObject.prototype);
@@ -68,6 +72,12 @@ Baddy.prototype.setTarget = function(target){
 }
 
 Baddy.prototype.Update = function(){
+
+	this.line.clear();
+	this.line.lineStyle(1, 0xf3a33f);
+	this.line.alpha = 1;
+	this.line.moveTo(player.container.children[0].x, player.container.children[0].y);
+	this.line.lineTo(this.container.children[0].x, this.container.children[0].y);
 	
 	if(this.state === "Neutral"){
 		//roam
@@ -85,11 +95,26 @@ Baddy.prototype.Update = function(){
 	}else if(this.state === "Aggro"){
 		//get targeted player entity
 		if(this.target){
-			this.direction = Math.atan((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
-			this.move(this.direction, 0.5)
+
+			var px = player.container.children[0].x;
+			var py = player.container.children[0].y;
+			var deltaX = this.container.children[0].x - px;
+			var deltaY = this.container.children[0].y - py;
 		}
-		//see if player is in range every x tick
-		if((Date.now() - this.tickTime) > 1000 ){
+
+		if(this.container.children[0].x - player.container.children[0].x > 0 ){
+			this.direction = Math.acos((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
+			this.move(this.direction, 0.2);
+		}else{
+
 		}
+
+		if(this.container.children[0].y - player.container.children[0].y < 0 ){
+			this.direction = Math.acos((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
+			this.move(this.direction, 0.2);
+		}else{
+
+		}
+		
 	}
 }

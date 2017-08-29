@@ -97,9 +97,6 @@ Player.prototype.checkCollisions = function(){
 			target.setAnimationState("Aggro");
 			target.setTarget(player);
 
-			console.log(target)
-			console.log(player);
-
 		}));
 	}
 	
