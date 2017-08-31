@@ -85,7 +85,6 @@ Baddy.prototype.Update = function(){
 			this.move(this.direction, 0.5);
 			if((Date.now() - this.tickTime) > 1000 ){
 				//flip direction 180 - L/R
-				console.log("tick");
 				this.direction += 180 ;
 				this.tickTime = Date.now();
 			}
@@ -93,28 +92,9 @@ Baddy.prototype.Update = function(){
 		
 
 	}else if(this.state === "Aggro"){
-		//get targeted player entity
-		if(this.target){
 
-			var px = player.container.children[0].x;
-			var py = player.container.children[0].y;
-			var deltaX = this.container.children[0].x - px;
-			var deltaY = this.container.children[0].y - py;
-		}
-
-		if(this.container.children[0].x - player.container.children[0].x > 0 ){
-			this.direction = Math.acos((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
-			this.move(this.direction, 0.2);
-		}else{
-
-		}
-
-		if(this.container.children[0].y - player.container.children[0].y < 0 ){
-			this.direction = Math.acos((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
-			this.move(this.direction, 0.2);
-		}else{
-
-		}
+		this.direction = Math.atan((this.container.children[0].x - player.container.children[0].x)/(this.container.children[0].y - player.container.children[0].y)) * (180/Math.PI) + 180; 
+		this.move(this.direction, 0.2);
 		
 	}
 }
