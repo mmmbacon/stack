@@ -108,10 +108,8 @@ let Init = function(){
 
 		let monster1 = new Baddy("Crab", 5*16, 5*16);
 		monster1.setType("Crab");
-		monster1.setState("Neutral");
 		monster1.setAnimationState("Neutral");
 		monster1.setPosition(3*16,6*16);
-		monster1.setNewCollisionZone(32);
 		sm.addEnemyToScene(currentScene, monster1);
 
 		//Set controls on player

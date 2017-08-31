@@ -30,9 +30,7 @@ GameObject.prototype.setPosition = function(x,y){
 	this.container.children[0].position.y = this.y;
 	
 }
-GameObject.prototype.move = function(direction, speed){
-
-	let angle = direction * (Math.PI/180);
+GameObject.prototype.move = function(angle, speed){
 
 	let movX = Math.cos( angle ) * speed;
 	let movY = Math.sin( angle ) * speed;
