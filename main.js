@@ -6,6 +6,8 @@ let stage = new PIXI.Container();
 let sm = new SceneManager();
 let bump = new Bump(PIXI);
 
+const CONTROLLER = document.getElementById("ControllerNumber").value;
+
 const PLAYERCOLLIDABLEOBJECTS = [
 	{"name" : "Tree"}
 ]
@@ -29,13 +31,13 @@ let Update = function(){
 
 				if(player){
 
-					let angle = Math.atan2(navigator.getGamepads()[0].axes[1], navigator.getGamepads()[0].axes[0]);
+					let angle = Math.atan2(navigator.getGamepads()[CONTROLLER].axes[1], navigator.getGamepads()[CONTROLLER].axes[0]);
 
 					//Set Deadzone
-					if(navigator.getGamepads()[0].axes[1] > 0.5 || 
-						navigator.getGamepads()[0].axes[1] < -0.5 || 
-						navigator.getGamepads()[0].axes[0] > 0.5 || 
-						navigator.getGamepads()[0].axes[0] < -0.5)
+					if(navigator.getGamepads()[CONTROLLER].axes[1] > 0.5 || 
+						navigator.getGamepads()[CONTROLLER].axes[1] < -0.5 || 
+						navigator.getGamepads()[CONTROLLER].axes[0] > 0.5 || 
+						navigator.getGamepads()[CONTROLLER].axes[0] < -0.5)
 					{
 						player.setAnimationState("Play");
 						player.move(angle,player.movespeed);
@@ -43,26 +45,6 @@ let Update = function(){
 					}else{
 						player.setAnimationState("Stop");
 					}
-						
-					
-
-					/*if(controls.up.isDown){
-						player.move(Math.PI+Math.PI/2, player.movespeed);
-					}
-					if(controls.down.isDown){
-						player.move(Math.PI/2, player.movespeed);
-					}
-					if(controls.left.isDown){
-						player.move(Math.PI, player.movespeed);
-					}
-					if(controls.right.isDown){
-						player.move(0, player.movespeed);
-					}*/
-					/*if(controls.up.isUp && controls.down.isUp && controls.left.isUp && controls.right.isUp){
-						player.setAnimationState("Stop")
-					}else{
-						player.setAnimationState("Play")
-					}*/
 				}
 				renderer.render(sm.currentScene.stage);
 			}
@@ -130,20 +112,6 @@ let Init = function(){
 		monster1.setAnimationState("Neutral");
 		monster1.setPosition(3*16,6*16);
 		sm.addEnemyToScene(currentScene, monster1);
-
-		//Set controls on player
-		/*controls.up.press = function() {
-		  player.setDirection("Up");
-		};
-		controls.down.press = function() {
-		  player.setDirection("Down");
-		};
-		controls.left.press = function() {
-		  player.setDirection("Left");
-		};
-		controls.right.press = function() {
-		  player.setDirection("Right");
-		};*/
 
 		Update();
 	}

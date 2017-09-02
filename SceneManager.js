@@ -108,6 +108,8 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	let img = new Image();
 	img.src = imgsrc;
 
+
+
 	//Terrain Loader
 	img.onload = function () {
 	    ctx.drawImage(img, 0, 0);
@@ -121,12 +123,15 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	    let container = new PIXI.Container();
 	    let xx = 0;
 
+
+
 	    //Iterates through a png file and generates a pixel array for later parsing by the level generator.
 	    for (let y = 0; y < canvas.height; y++){
 	    	ax = [];
 	    	for (let x = 0; x < canvas.width; x++){
 	    		for (let i = 0; i < 4; i++){
 	    			pix.push(data[ i + xx ]);
+
 	    		}
 	    		ax.push({
 	    			color: pix,
@@ -135,11 +140,12 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	    				y: y * 16
 	    			}
 	    		});
+
 	    		pix = [];
 	    		xx = xx + 4;
 	    	}
 	    	
-	    	ay.push(ax)
+	    	ay.push(ax);
 	    }
 	    pixArray.push(ay);
 
@@ -151,6 +157,8 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	    		for (let x = 0; x < pixArray[y].length; x++){
 	    			for(let pix = 0; pix < pixArray[y][x].length; pix++){
 
+	    				console.log(pixArray[0][0][0].color);
+
 	    				//RED PIXELS
 	    				if(arraysEqual(pixArray[y][x][pix].color, [237,28,36,255]) ){
 	    					let id = PIXI.loader.resources["blocks16x16/blocks16x16.json"].textures;
@@ -158,6 +166,7 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	    					sprite.position.x = pixArray[y][x][pix].position.x;
 	    					sprite.position.y = pixArray[y][x][pix].position.y;
 	    					container.addChild(sprite);
+	    					console.log(container);
 	    				}
 
 	    				//BLUE PIXELS - Water - Collidable
@@ -249,14 +258,23 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 
 	    stage.addChildAt(container,0);
 
+	    //Search Tool
 	    function arraysEqual(a, b) {
-	      if (a === b) return true;
-	      if (a == null || b == null) return false;
-	      if (a.length != b.length) return false;
+
+	      if (a === b){
+	      	return true;
+	      }
+	      if (a == null || b == null){
+	      	return false;
+	      }
+	      if (a.length != b.length){
+	      	return false;
+	      } 
 
 	      for (var i = 0; i < a.length; ++i) {
 	        if (a[i] !== b[i]) return false;
 	      }
+
 	      return true;
 	    }
 	};	                
