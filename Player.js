@@ -13,8 +13,6 @@ function Player(name){
 }
 Player.prototype = Object.create(GameObject.prototype);
 Player.prototype.constructor = Player;
-Player.prototype.move = function(){
-}
 Player.prototype.setRace = function(race){
 
 	this.race = race;
@@ -67,8 +65,31 @@ Player.prototype.setAnimationState = function(state){
 		this.anim.stop();
 	}
 }
-Player.prototype.setDirection = function(direction){
-	if(direction === "Up"){
+Player.prototype.setDirection = function(angle){
+
+	if(angle < Math.PI/4 || angle > Math.PI/4*-1){
+		console.log("right")
+		this.container.children[0].textures = this.frames[3];
+	}
+
+	if(angle > Math.PI/4 || angle < Math.PI/4*-1){
+		console.log("right")
+		this.container.children[0].textures = this.frames[2];
+	}
+
+	if(angle > Math.PI/4 && angle < Math.PI/4*3){
+		console.log("right")
+		this.container.children[0].textures = this.frames[1];
+	}
+
+	if(angle < Math.PI/4*-1 && angle > Math.PI/4*-3){
+		console.log("right")
+		this.container.children[0].textures = this.frames[0];
+	}
+
+	console.log(angle)
+
+	/*if(direction === "Up"){
 		this.container.children[0].textures = this.frames[0];
 	}
 	if(direction === "Down"){
@@ -79,7 +100,7 @@ Player.prototype.setDirection = function(direction){
 	}
 	if(direction === "Right"){
 		this.container.children[0].textures = this.frames[3];
-	}
+	}*/
 }
 
 Player.prototype.checkCollisions = function(){
@@ -115,6 +136,5 @@ Player.prototype.checkCollisions = function(){
 		}
 			
 	}	
-	
 }
 

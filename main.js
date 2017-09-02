@@ -1,9 +1,9 @@
 'use strict'
 let running = true;
-var renderer = new PIXI.autoDetectRenderer(1024, 1024,{antialias: false, transparent: false, resolution: 1});
+let renderer = new PIXI.autoDetectRenderer(1024, 1024,{antialias: false, transparent: false, resolution: 1});
 document.body.appendChild(renderer.view);
-var stage = new PIXI.Container();
-var sm = new SceneManager();
+let stage = new PIXI.Container();
+let sm = new SceneManager();
 let bump = new Bump(PIXI);
 
 const PLAYERCOLLIDABLEOBJECTS = [
@@ -26,24 +26,43 @@ let Update = function(){
 		//render currentScene
 		if(sm.currentScene){
 			if(sm.currentScene.stage){
+
 				if(player){
-					if(controls.up.isDown){
-						player.container.children[0].y -= 1 * player.movespeed;
+
+					let angle = Math.atan2(navigator.getGamepads()[0].axes[1], navigator.getGamepads()[0].axes[0]);
+
+					//Set Deadzone
+					if(navigator.getGamepads()[0].axes[1] > 0.5 || 
+						navigator.getGamepads()[0].axes[1] < -0.5 || 
+						navigator.getGamepads()[0].axes[0] > 0.5 || 
+						navigator.getGamepads()[0].axes[0] < -0.5)
+					{
+						player.setAnimationState("Play");
+						player.move(angle,player.movespeed);
+						player.setDirection(angle);
+					}else{
+						player.setAnimationState("Stop");
+					}
+						
+					
+
+					/*if(controls.up.isDown){
+						player.move(Math.PI+Math.PI/2, player.movespeed);
 					}
 					if(controls.down.isDown){
-						player.container.children[0].y += 1 * player.movespeed;
+						player.move(Math.PI/2, player.movespeed);
 					}
 					if(controls.left.isDown){
-						player.container.children[0].x -= 1 * player.movespeed;
+						player.move(Math.PI, player.movespeed);
 					}
 					if(controls.right.isDown){
-						player.container.children[0].x += 1 * player.movespeed;
-					}
-					if(controls.up.isUp && controls.down.isUp && controls.left.isUp && controls.right.isUp){
+						player.move(0, player.movespeed);
+					}*/
+					/*if(controls.up.isUp && controls.down.isUp && controls.left.isUp && controls.right.isUp){
 						player.setAnimationState("Stop")
 					}else{
 						player.setAnimationState("Play")
-					}
+					}*/
 				}
 				renderer.render(sm.currentScene.stage);
 			}
@@ -113,7 +132,7 @@ let Init = function(){
 		sm.addEnemyToScene(currentScene, monster1);
 
 		//Set controls on player
-		controls.up.press = function() {
+		/*controls.up.press = function() {
 		  player.setDirection("Up");
 		};
 		controls.down.press = function() {
@@ -124,7 +143,7 @@ let Init = function(){
 		};
 		controls.right.press = function() {
 		  player.setDirection("Right");
-		};
+		};*/
 
 		Update();
 	}

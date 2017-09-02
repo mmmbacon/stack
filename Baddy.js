@@ -72,7 +72,6 @@ Baddy.prototype.Update = function(){
 	this.y = this.container.children[0].y;
 
 	this.line.clear();
-	
 
 	let y = this.x - player.container.children[0].x;
 	let x = this.y - player.container.children[0].y;
