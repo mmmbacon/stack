@@ -166,7 +166,7 @@ SceneManager.prototype.generateLevel = function(imgsrc, scene){
 	    					sprite.position.x = pixArray[y][x][pix].position.x;
 	    					sprite.position.y = pixArray[y][x][pix].position.y;
 	    					container.addChild(sprite);
-	    					console.log(container);
+	    					
 	    				}
 
 	    				//BLUE PIXELS - Water - Collidable
